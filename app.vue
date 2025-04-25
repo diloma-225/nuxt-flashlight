@@ -30,11 +30,13 @@
 </template>
 <script setup>
 import { CapacitorFlash } from '@capgo/capacitor-flash';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 const isOn = ref(false)
 const toggleFlash = async () => {
   isOn.value = !isOn.value
   await CapacitorFlash.toggle();
+  await Haptics.vibrate();
 }
 /* const checkFlashlightAvailability = () => {
   CapacitorFlash.isAvailable().then((result) => {
