@@ -2,8 +2,8 @@
   <ion-page>
     <ion-content class="ion-padding">
       <div style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
-{{ test }}
-      <ion-button shape="round" @click="checkFlashlightAvailability()">FLASH LIGHT</ion-button>
+      <ion-button shape="round" @click="switchOnFlashlight()">SWITCH  FLASH ON</ion-button>
+      <ion-button shape="round" @click="switchOffFlashlight()">SWITCH  FLASH OFF</ion-button>
       </div>
       
     </ion-content>
@@ -18,5 +18,16 @@ const checkFlashlightAvailability = () => {
     test.value = result.value;
   });
 };
+
+async function switchOnFlashlight() {
+  const options = {
+    intensity: 100, // Set the intensity to 100%
+  };
+  await CapacitorFlash.switchOn(options);
+}
+
+async function switchOffFlashlight() {
+  await CapacitorFlash.switchOff();
+}
 
 </script>
