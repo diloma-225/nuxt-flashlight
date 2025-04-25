@@ -17,7 +17,9 @@
     "@capacitor/keyboard": "7.0.1",
     "@capacitor/status-bar": "7.0.1",
     "@capgo/capacitor-flash": "^7.0.4",
+    "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/ionic": "^0.18.0",
+    "@nuxtjs/tailwindcss": "^6.13.2",
     "nuxt": "^3.16.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
