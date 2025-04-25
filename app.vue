@@ -1,8 +1,11 @@
 <template>
   <ion-page>
     <ion-content class="ion-padding">
-      {{ test }}
+      <div style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
+{{ test }}
       <ion-button shape="round" @click="checkFlashlightAvailability()">FLASH LIGHT</ion-button>
+      </div>
+      
     </ion-content>
   </ion-page>
 </template>
