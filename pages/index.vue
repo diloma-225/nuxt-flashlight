@@ -55,7 +55,7 @@ import LightDark from '~/components/light-dark.vue';
       await CapacitorFlash.switchOff();
     } else {
       const options = {
-        intensity: 50, // Set the intensity to 100%
+        intensity: 100, // Set the intensity to 100%
       };
       await CapacitorFlash.switchOn(options);
       

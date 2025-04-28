@@ -64,6 +64,13 @@ const toggleHaptic = async()=>{
         key: 'isHapticFeedbackOn',
         value: isHapticFeedbackOn.value.toString()
     });
+
+    const { isHaptic } = await Preferences.get({ key: 'isHapticFeedbackOn' });
+    if (isHaptic === 'true') {
+        await Haptics.vibrate();
+    } else if (isHaptic === 'false') {
+     
+    }
 }
 
 
@@ -74,6 +81,13 @@ const setDarkMode = async () => {
       isDarkModeOn.value = true;
     } else if (value === 'false') {
       isDarkModeOn.value = false;
+    }
+
+    const { isHaptic } = await Preferences.get({ key: 'isHapticFeedbackOn' });
+    if (isHaptic === 'true') {
+        await Haptics.vibrate();
+    } else if (isHaptic === 'false') {
+     
     }
     
 }
