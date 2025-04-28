@@ -1,5 +1,5 @@
 <template>
-    <img src="~/assets/images/light.svg" class="w-3/6" alt="" v-if="!isOn">
+    <img src="~/assets/images/light-black.svg" class="w-3/6" alt="" v-if="!isOn">
     <img src="~/assets/images/light-on.svg" class="w-3/6" alt="" v-else>
 </template>
 

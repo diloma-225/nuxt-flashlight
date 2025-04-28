@@ -1,0 +1,1 @@
+import{W as e}from"./Di88FUQ9.js";import"./LbSMJhVq.js";class i extends e{isAvailable(){return Promise.resolve({value:!1})}switchOn(o){throw new Error("Method not implemented.")}switchOff(){throw new Error("Method not implemented.")}isSwitchedOn(){throw new Error("Method not implemented.")}toggle(){throw new Error("Method not implemented.")}}export{i as CapacitorFlashWeb};
