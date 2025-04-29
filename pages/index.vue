@@ -41,8 +41,12 @@
   import { Haptics, ImpactStyle } from '@capacitor/haptics';
   import { Preferences } from '@capacitor/preferences';
 import LightDark from '~/components/light-dark.vue';
+import { App as CapacitorApp } from '@capacitor/app'
+
   
   const router = useIonRouter()
+  const route = useRoute();
+
   
   const isOn = ref(false)
 
@@ -69,7 +73,7 @@ import LightDark from '~/components/light-dark.vue';
     
   }
 
-  const setDarkMode = async () => {
+const setDarkMode = async () => {
     const { value } = await Preferences.get({ key: 'isDarkModeOn' });
     
     if (value === 'true') {
@@ -78,13 +82,19 @@ import LightDark from '~/components/light-dark.vue';
       isDarkModeOn.value = false;
     }
     
-  }
-  onIonViewWillEnter(async() => {
-    await setDarkMode(); 
-  
+}
+onIonViewWillEnter(async() => {
+    await setDarkMode();  
+    await Preferences.set({
+        key: 'currentPage',
+        value: 'index',
+    });
+     /* console.log(await Preferences.get({ key: 'currentPage' })); */
+       
 });
 
-  onMounted(async () => {
+onMounted(async () => {
+
         const { keys } = await Preferences.keys();
         if (!keys.includes('isHapticFeedbackOn')) {
         await Preferences.set({
@@ -99,9 +109,29 @@ import LightDark from '~/components/light-dark.vue';
                 value: 'true',
             });
         }
+        await Preferences.set({
+                key: 'currentPage',
+                value: 'index',
+            });
         await setDarkMode(); 
-    })
+})
+
+CapacitorApp.addListener('backButton', async ({ canGoBack }) => {
+  const { keys } = await Preferences.keys();
+
+  if (keys.includes('currentPage')) {
+    const { value } = await Preferences.get({ key: 'currentPage' });
+    if (value === 'index') {
+      CapacitorApp.exitApp();
+    } else {
+      router.back();
+    }
+  } else {
+    // Si aucune clé 'currentPage', comportement par défaut
+    router.back();
+  }
+});
+
   
   
-  
-  </script>  
+</script>  

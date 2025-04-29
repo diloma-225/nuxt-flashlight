@@ -3,7 +3,7 @@
         <ion-content class="ion-padding" :fullscreen="true">
             <div :class="{ dark: isDarkModeOn }">
                 <div class="w-full h-screen bg-white dark:bg-bg-dark flex flex-col items-center justify-top relative pt-10">
-                    <div class="absolute top-20 left-5 p-4 w-14 h-14 rounded-full bg-gray-300 dark:bg-gray-700" @click="router.push('/')">
+                    <div class="absolute top-20 left-5 p-4 w-14 h-14 rounded-full bg-gray-300 dark:bg-gray-700" @click="router.replace('/')">
                         <img src="~/assets/images/arrow-back.svg" class="w-16" alt="">
                     </div>
                     <h1 class="text-black dark:text-white text-[3rem] font-bold mt-28">Settings</h1>
@@ -50,6 +50,7 @@ const isHapticFeedbackOn = ref(false);
 
 
 const router = useIonRouter()
+const route = useRoute();
 
 const toggleDarkMode = async ()=>{
     isDarkModeOn.value = !isDarkModeOn.value
@@ -57,6 +58,9 @@ const toggleDarkMode = async ()=>{
         key: 'isDarkModeOn',
         value: isDarkModeOn.value.toString()
     });
+    if (isHapticFeedbackOn.value) {
+        await Haptics.vibrate();
+    } 
 }
 const toggleHaptic = async()=>{
     isHapticFeedbackOn.value = !isHapticFeedbackOn.value
@@ -66,11 +70,9 @@ const toggleHaptic = async()=>{
     });
 
     const { isHaptic } = await Preferences.get({ key: 'isHapticFeedbackOn' });
-    if (isHaptic === 'true') {
+    if (isHapticFeedbackOn.value) {
         await Haptics.vibrate();
-    } else if (isHaptic === 'false') {
-     
-    }
+    } 
 }
 
 
@@ -84,11 +86,7 @@ const setDarkMode = async () => {
     }
 
     const { isHaptic } = await Preferences.get({ key: 'isHapticFeedbackOn' });
-    if (isHaptic === 'true') {
-        await Haptics.vibrate();
-    } else if (isHaptic === 'false') {
-     
-    }
+ 
     
 }
 
@@ -101,6 +99,16 @@ const setHaptic = async () => {
       isHapticFeedbackOn.value = false;
     }
 }
+
+onIonViewWillEnter(async() => {
+    await setDarkMode();
+    await Preferences.set({
+        key: 'currentPage',
+        value: 'settings',
+    });
+   /*  console.log(await Preferences.get({ key: 'currentPage' })); */
+         
+});
 
 
 onMounted(async () => {
@@ -121,6 +129,10 @@ onMounted(async () => {
 
     await setHaptic();
     await setDarkMode();
+    await Preferences.set({
+        key: 'currentPage',
+        value: 'settings',
+    });
 })
 
 </script>
